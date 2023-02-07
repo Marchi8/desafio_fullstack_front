@@ -1,17 +1,24 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { ILoginData, ILoginResponse, IRegisterData, IRegisterResponse, IResponseUserData } from "../interfaces";
+import { createContext, ReactNode, SetStateAction, useContext, useState } from "react";
+import { IFriends, ILoginData, ILoginResponse, IRegisterData, IRegisterResponse, IResponseUserData } from "../interfaces";
 import { API } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FriendContext } from "./FriendsContext";
 
 export const UserContext = createContext<IUserAuth>({} as IUserAuth)
 
 export interface IUserAuth {
     user: IResponseUserData;
-    allUsers: IResponseUserData[];
-    setAllUsers: (data: IResponseUserData[] | []) => void;
+    allUsers: IResponseUserData[] | [];
+    friends: IFriends[] | [];
+    setUser: (value: SetStateAction<IResponseUserData>) => void
+    setAllUsers: (value: React.SetStateAction<IResponseUserData[]>) => void
+    setFriends: (value: React.SetStateAction<IFriends[]>) => void
     loginFunc: (data: ILoginData) => void;
     registerFunc: (data: IRegisterData) => void;
+    getUser: () => void;
+    getFriends: () => void;
+    retrieveUsers: () => void;
 }
 
 export interface IUserProps {
@@ -19,21 +26,53 @@ export interface IUserProps {
 }
 
 function UserProvider({ children }: IUserProps) {
-
+    const userId = window.localStorage.getItem("@id")
     const token = window.localStorage.getItem("@token")
     const navigate = useNavigate()
 
     const [user, setUser] = useState<IResponseUserData>({} as IResponseUserData)
     const [allUsers, setAllUsers] = useState<IResponseUserData[]>([])
+    const [friends, setFriends] = useState<IFriends[]>([])
+
+    const getUser = () => {
+        API.get<IResponseUserData>(`/users/${userId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                setUser(res.data)
+            })
+            .catch(err => console.log(err))
+    }
+
+    const getFriends = () => {
+        API.get(`/users/${userId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                setFriends(res.data.friends)
+            })
+            .catch(err => console.log(err))
+    }
+    console.log(friends)
+
+
+    const retrieveUsers = () => {
+        API.get(`/users/`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                setAllUsers(res.data)
+            })
+            .catch(err => console.log(err))
+    }
 
     const loginFunc = (data: ILoginData) => {
         console.log(data)
         API.post<ILoginResponse>("/login", data)
             .then(res => {
-                console.log(res)
-                console.log(res.data.user)
-                setUser(res.data.user)
+                getUser()
                 window.localStorage.setItem("@token", res.data.token)
+                window.localStorage.setItem("@id", res.data.user.id)
                 toast.success("Login realizado com sucesso!", {
                     position: "top-right",
                     autoClose: 800,
@@ -65,7 +104,6 @@ function UserProvider({ children }: IUserProps) {
         console.log({ ...data, isAdm: true })
         API.post<IRegisterResponse>("/users/", { ...data, isAdm: true })
             .then(res => {
-                console.log(res)
                 toast.success("Registro realizado com sucesso!", {
                     position: "top-right",
                     autoClose: 800,
@@ -94,7 +132,7 @@ function UserProvider({ children }: IUserProps) {
     }
 
     return (
-        <UserContext.Provider value={{ setAllUsers, allUsers, user, loginFunc, registerFunc }}>
+        <UserContext.Provider value={{ getFriends, friends, setFriends, retrieveUsers, getUser, setAllUsers, allUsers, user, setUser, loginFunc, registerFunc }}>
             {children}
         </UserContext.Provider>
     )

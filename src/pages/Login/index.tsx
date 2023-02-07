@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom"
 import Dashboard from "../Dashboard"
 
 function Login() {
-
     const navigate = useNavigate()
-
     const token = window.localStorage.getItem("@token")
     if (token) {
         navigate("/dashboard", { replace: true })

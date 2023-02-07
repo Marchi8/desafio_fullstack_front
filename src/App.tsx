@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.min.css'
 import FriendProvider from './contexts/FriendsContext'
 
 function App() {
-
   return (
     <div className="App">
       <UserProvider>
@@ -18,9 +17,9 @@ function App() {
           <GlobalStyle />
           <ToastContainer />
           <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </FriendProvider>
       </UserProvider>

@@ -1,26 +1,34 @@
 import { useContext, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import { FriendContext } from "../../contexts/FriendsContext"
 import { UserContext } from "../../contexts/UserContext"
-import { IFriends, IResponseUserData } from "../../interfaces"
-import { API } from "../../services/api"
+import { IResponseUserData } from "../../interfaces"
 import { AllUsersCardStyle } from "./styles"
 
-function AllUsersCard(data: IResponseUserData) {
-    const { removeFriend, setFriends, friends, addFriend } = useContext(FriendContext)
-    const { allUsers } = useContext(UserContext)
+function AllUsersCard() {
+    const { addFriend } = useContext(FriendContext)
+    const { allUsers, user, getUser } = useContext(UserContext)
 
-    const token = window.localStorage.getItem("@token")
-    const navigate = useNavigate()
-
-    // console.log(data)
+    useEffect(() => {
+        getUser()
+    }, [])
     return (
-        <AllUsersCardStyle>
-            <div>
-                <p>{data.name}</p>
-                <button onClick={() => addFriend(data.name, data.email, data.phone!)}>Adicionar Amigo</button>
-            </div>
-        </AllUsersCardStyle>
+        <>
+            {
+                allUsers.map((userall: IResponseUserData) => (
+                    userall.name == user.name ?
+                        <></>
+                        :
+                        <AllUsersCardStyle key={userall.id}>
+                            <div>
+                                <p>{userall.name}</p>
+                                <p>{userall.email}</p>
+                                <p>{userall.phone}</p>
+                                <button onClick={() => addFriend(userall.name, userall.email, userall.phone)}>Adicionar Amigo</button>
+                            </div>
+                        </AllUsersCardStyle>
+                ))
+            }
+        </>
     )
 }
 
