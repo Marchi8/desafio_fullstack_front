@@ -1,12 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext } from "react";
 import { toast } from "react-toastify";
-import { IFriends, IResponseUserData } from "../interfaces";
 import { API } from "../services/api";
 import { IUserProps, UserContext } from "./UserContext";
 
 export const FriendContext = createContext<IFriendAuth>({} as IFriendAuth)
-
 
 export interface IFriendAuth {
     addFriend: (email: string, name: string, phone: string) => void;
@@ -15,15 +12,15 @@ export interface IFriendAuth {
 
 function FriendProvider({ children }: IUserProps) {
     const token = window.localStorage.getItem("@token")
-    const userId = window.localStorage.getItem("@id")
-    const { friends, setFriends, setAllUsers, user, getUser, retrieveUsers } = useContext(UserContext)
+    const { friends, setFriends, retrieveUsers } = useContext(UserContext)
 
     const removeFriend = (friendId: string) => {
         API.delete(`/friends/${friendId}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => {
-                setFriends((current) => current.filter((friend) => friend.friendId !== friendId))
+                setFriends((current) => current.filter((friend) =>
+                    friend.friendId !== friendId))
                 retrieveUsers()
                 toast.success("Usuário removido da lista de amigos", {
                     position: "top-right",
@@ -51,7 +48,6 @@ function FriendProvider({ children }: IUserProps) {
     }
 
     const addFriend = (name: string, email: string, phone: string) => {
-        console.log({ email: email, name: name, phone: phone })
         API.post(`/friends`, { email: email, name: name, phone: phone }, {
             headers: { Authorization: `Bearer ${token}` }
         })
@@ -87,7 +83,6 @@ function FriendProvider({ children }: IUserProps) {
             {children}
         </FriendContext.Provider>
     )
-
 }
 
 export default FriendProvider

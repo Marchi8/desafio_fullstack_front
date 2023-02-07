@@ -6,7 +6,12 @@ import { UserContext } from "../../contexts/UserContext";
 import { Main } from "./styles";
 
 function Dashboard() {
-    const { user, getUser, friends, retrieveUsers, getFriends } = useContext(UserContext)
+    const {
+        user,
+        getUser,
+        retrieveUsers,
+        getFriends
+    } = useContext(UserContext)
 
     const token = window.localStorage.getItem("@token")
     const navigate = useNavigate()
@@ -16,8 +21,8 @@ function Dashboard() {
             navigate(`/`, { replace: true })
         } else {
             retrieveUsers()
-            getUser()
             getFriends()
+            getUser()
         }
     }, [])
 

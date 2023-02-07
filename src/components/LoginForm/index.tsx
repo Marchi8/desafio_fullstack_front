@@ -8,33 +8,31 @@ import { useContext } from "react"
 import { UserContext } from "../../contexts/UserContext"
 
 function LoginForm() {
-
     const { loginFunc } = useContext(UserContext)
-
-    const navigate = useNavigate()
-
-    const token = window.localStorage.getItem("@token")
 
     const formSchema = yup.object().shape({
         email: yup.string().email("Email inválido").required("Email necessário"),
         password: yup.string().required("Senha necessária")
     })
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ILoginData>({
-        resolver: yupResolver(formSchema)
-    })
+    const { register, handleSubmit, formState: { errors } } =
+        useForm<ILoginData>({
+            resolver: yupResolver(formSchema)
+        })
 
     return (
         <FormLogin onSubmit={handleSubmit(loginFunc)}>
             <h3>Login</h3>
             <div>
                 <label>Email</label>
-                <input type="text" placeholder="Digite aqui seu email" {...register("email")} />
+                <input type="text" placeholder="Digite aqui seu email"
+                    {...register("email")} />
                 <span>{errors.email?.message}</span>
             </div>
             <div>
                 <label>Senha</label>
-                <input type="password" placeholder="Digite aqui sua senha" {...register("password")} />
+                <input type="password" placeholder="Digite aqui sua senha"
+                    {...register("password")} />
                 <span>{errors.password?.message}</span>
             </div>
             <button type="submit">Entrar</button>

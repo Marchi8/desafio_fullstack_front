@@ -1,9 +1,15 @@
-import { createContext, ReactNode, SetStateAction, useContext, useState } from "react";
-import { IFriends, ILoginData, ILoginResponse, IRegisterData, IRegisterResponse, IResponseUserData } from "../interfaces";
+import { createContext, ReactNode, SetStateAction, useState } from "react";
+import {
+    IFriends,
+    ILoginData,
+    ILoginResponse,
+    IRegisterData,
+    IRegisterResponse,
+    IResponseUserData
+} from "../interfaces";
 import { API } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FriendContext } from "./FriendsContext";
 
 export const UserContext = createContext<IUserAuth>({} as IUserAuth)
 
@@ -53,7 +59,6 @@ function UserProvider({ children }: IUserProps) {
             })
             .catch(err => console.log(err))
     }
-    console.log(friends)
 
 
     const retrieveUsers = () => {
@@ -67,7 +72,6 @@ function UserProvider({ children }: IUserProps) {
     }
 
     const loginFunc = (data: ILoginData) => {
-        console.log(data)
         API.post<ILoginResponse>("/login", data)
             .then(res => {
                 getUser()
@@ -132,8 +136,19 @@ function UserProvider({ children }: IUserProps) {
     }
 
     return (
-        <UserContext.Provider value={{ getFriends, friends, setFriends, retrieveUsers, getUser, setAllUsers, allUsers, user, setUser, loginFunc, registerFunc }}>
-            {children}
+        <UserContext.Provider value={{
+            getFriends,
+            friends,
+            setFriends,
+            retrieveUsers,
+            getUser,
+            setAllUsers,
+            allUsers,
+            user,
+            setUser,
+            loginFunc,
+            registerFunc
+        }}>{children}
         </UserContext.Provider>
     )
 }

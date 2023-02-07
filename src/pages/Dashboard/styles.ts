@@ -3,21 +3,21 @@ import styled from "styled-components";
 const Main = styled.main`
     list-style: none;
     // background-color: red;
-    display: flex;
-    flex-direction: column; 
-    justify-content: flex-start;
-    align-items: center;
+    // display: flex;
+    // flex-direction: column; 
+    // justify-content: center;
+    // align-items: center;
     width: 100vw;
     height: 100vh;
 
     section{
         // background-color: blue;
         display: flex;
-        flex-direction: row; 
-        justify-content: space-evenly;
+        flex-direction: column; 
+        justify-content: center;
         align-items: center;
-        width: 100vw;
-        height: 100vh;
+        // width: 100vw;
+        // height: 10vh;
     }
 
     p{
@@ -27,12 +27,12 @@ const Main = styled.main`
     ul{
         // background-color: white;
         display: flex;
-        flex-direction: column; 
+        flex-direction: row; 
         justify-content: flex-start;
-        align-items: center;
-        padding: 0;
-        width: 30vw;
-        height: 50vw;
+        // align-items: center;
+        // padding: 2;
+        width: 82vw;
+        height: 320px;
         overflow-x: auto;
     }
 
