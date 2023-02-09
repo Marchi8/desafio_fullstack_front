@@ -2,7 +2,6 @@ import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AllUsersCard from "../../components/AllUsersCard";
 import FriendsCard from "../../components/FriendsCard";
-import { FriendContext } from "../../contexts/FriendsContext";
 import { UserContext } from "../../contexts/UserContext";
 import { Main } from "./styles";
 
@@ -13,8 +12,6 @@ function Dashboard() {
         retrieveUsers,
         getFriends
     } = useContext(UserContext)
-
-    const { editCard, setEditCard, removeFriend } = useContext(FriendContext)
 
     const token = window.localStorage.getItem("@token")
     const navigate = useNavigate()

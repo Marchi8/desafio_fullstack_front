@@ -23,7 +23,6 @@ const FriendCardStyle = styled.li`
         // background-color: pink;
         border-radius: 100px;
         font-size: 20px;
-        // margin-left: 10px;
         padding: 0;
         width: 50px;
         height: 50px;
