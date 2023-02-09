@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     flex-direction: column;
   }
+  
   input[type='number'] {
     -moz-appearance:textfield;
   }
@@ -18,5 +19,16 @@ const GlobalStyle = createGlobalStyle`
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+
+  button{
+    border: 1px solid white;
+  }
+
+  button:hover{
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    font-style: italic;
+}
 `
 export default GlobalStyle

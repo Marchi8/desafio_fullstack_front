@@ -3,28 +3,33 @@ import { FriendContext } from "../../contexts/FriendsContext"
 import { UserContext } from "../../contexts/UserContext"
 import { IFriends } from "../../interfaces"
 import { FriendCardStyle } from "./styles"
+import { AiOutlineEdit } from "react-icons/ai"
 
 function FriendsCard() {
-    const { removeFriend } = useContext(FriendContext)
+    const { editCard, setEditCard, removeFriend } = useContext(FriendContext)
     const { friends, user } = useContext(UserContext)
-
+    console.log(editCard)
     return (
         <>
             {friends.map((data: IFriends) => (
-                data.name == user.name ?
-                    <></>
+                data.email == user.email ?
+                    null
                     :
-                    <FriendCardStyle key={data.id}>
+                    <FriendCardStyle key={data.friendId}>
                         <div>
+                            {/* <button onclick set editUserCard on/> */}
+                            {/* <button onClick={() => setEditCard(false)}>X</button> */}
+                            <button id="open-edit" onClick={() => { setEditCard(true) }}> <AiOutlineEdit /></button>
                             <p>{data.name}</p>
                             <p>{data.email}</p>
                             <p>{data.phone}</p>
                             <button onClick={() => removeFriend(data.friendId)}>
-                                remover amigo
+                                Remover contato
                             </button>
                         </div>
                     </FriendCardStyle>
-            ))}
+            ))
+            }
         </>
     )
 }

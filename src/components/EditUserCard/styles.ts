@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const AllUsersCardStyle = styled.li`
+const EditUserCardStyle = styled.li`
     list-style: none;
     background-color: pink;
     display: flex;
@@ -8,8 +8,10 @@ const AllUsersCardStyle = styled.li`
     justify-content: flex-start;
     align-items: center;
     margin:10px;
+    width: 150px;
+    height: 150px;
     border-radius: 30px;
-    
+
     p{
         color: white;
     }
@@ -19,4 +21,4 @@ const AllUsersCardStyle = styled.li`
     }
 `
 
-export { AllUsersCardStyle }
+export { EditUserCardStyle }

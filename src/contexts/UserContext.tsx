@@ -60,7 +60,6 @@ function UserProvider({ children }: IUserProps) {
             .catch(err => console.log(err))
     }
 
-
     const retrieveUsers = () => {
         API.get(`/users/`, {
             headers: { Authorization: `Bearer ${token}` }
@@ -74,7 +73,6 @@ function UserProvider({ children }: IUserProps) {
     const loginFunc = (data: ILoginData) => {
         API.post<ILoginResponse>("/login", data)
             .then(res => {
-                getUser()
                 window.localStorage.setItem("@token", res.data.token)
                 window.localStorage.setItem("@id", res.data.user.id)
                 toast.success("Login realizado com sucesso!", {
@@ -122,7 +120,7 @@ function UserProvider({ children }: IUserProps) {
             })
             .catch(error => {
                 console.log(error)
-                toast.error("Ops! Algo deu errado", {
+                toast.error(error.response.data.message, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,

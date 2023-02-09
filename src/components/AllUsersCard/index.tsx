@@ -11,8 +11,8 @@ function AllUsersCard() {
     return (
         <>
             {allUsers.map((userall: IResponseUserData) => (
-                userall.name == user.name ?
-                    <></>
+                userall.email == user.email ?
+                    null
                     :
                     <AllUsersCardStyle key={userall.id}>
                         <div>
@@ -24,7 +24,7 @@ function AllUsersCard() {
                                     userall.name,
                                     userall.email,
                                     userall.phone
-                                )}>Adicionar Amigo
+                                )}>Adicionar usuário
                             </button>
                         </div>
                     </AllUsersCardStyle>
