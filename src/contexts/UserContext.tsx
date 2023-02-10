@@ -103,7 +103,6 @@ function UserProvider({ children }: IUserProps) {
     }
 
     const registerFunc = (data: IRegisterData) => {
-        console.log({ ...data, isAdm: true })
         API.post<IRegisterResponse>("/users/", { ...data, isAdm: true })
             .then(res => {
                 toast.success("Registro realizado com sucesso!", {

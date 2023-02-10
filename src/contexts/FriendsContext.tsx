@@ -6,6 +6,7 @@ import {
     useState
 } from "react";
 import { toast } from "react-toastify";
+import { IAddFriendData } from "../interfaces";
 import { API } from "../services/api";
 import { IUserProps, UserContext } from "./UserContext";
 
@@ -13,12 +14,15 @@ export const FriendContext = createContext<IFriendAuth>({} as IFriendAuth)
 
 export interface IFriendAuth {
     editCard: string | null;
+    createFriendCard: boolean;
     friendIdState: string | undefined;
     setEditCard: Dispatch<SetStateAction<string | null>>;
+    setCreateFriendCard: Dispatch<SetStateAction<boolean>>;
     setfriendIdState: Dispatch<SetStateAction<string | undefined>>;
     addFriend: (email: string, name: string, phone: string) => void;
+    createFriend: (data: IAddFriendData) => void;
     removeFriend: (data: string) => void;
-    editFriend: (data: any) => void;
+    editPhone: (data: any) => void;
 }
 
 function FriendProvider({ children }: IUserProps) {
@@ -30,6 +34,7 @@ function FriendProvider({ children }: IUserProps) {
         retrieveUsers
     } = useContext(UserContext)
     const [editCard, setEditCard] = useState<string | null>(null)
+    const [createFriendCard, setCreateFriendCard] = useState<boolean>(false)
     const [friendIdState, setfriendIdState] = useState<string | undefined>()
 
     const removeFriend = (friendId: string) => {
@@ -96,7 +101,52 @@ function FriendProvider({ children }: IUserProps) {
             })
     }
 
-    const editFriend = (data: any) => {
+    const createFriend = (data: IAddFriendData) => {
+        API.post(`/friends`, data, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                setFriends([...friends, res.data])
+                setCreateFriendCard(false)
+                toast.success("Usuário adicionado à lista de amigos", {
+                    position: "top-right",
+                    autoClose: 800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            })
+            .catch(error => {
+                toast.error("Usuário já adicionado", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            })
+    }
+
+    const editPhone = (data: any) => {
+        if (data == "") {
+            return toast.error("Dados vazios", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
+        }
+
         API.patch(`/friends/${friendIdState}`, data, {
             headers: { Authorization: `Bearer ${token}` }
         })
@@ -131,11 +181,14 @@ function FriendProvider({ children }: IUserProps) {
 
     return (
         <FriendContext.Provider value={{
+            createFriend,
+            setCreateFriendCard,
+            createFriendCard,
             friendIdState,
             setfriendIdState,
             editCard,
             setEditCard,
-            editFriend,
+            editPhone,
             addFriend,
             removeFriend
         }}>{children}

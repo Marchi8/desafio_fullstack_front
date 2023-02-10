@@ -9,15 +9,12 @@ import * as yup from "yup"
 function EditUserCard(friendId: Partial<IFriends>) {
     const {
         setfriendIdState,
-        editFriend,
+        editPhone,
         setEditCard
     } = useContext(FriendContext)
 
     const formSchema = yup.object().shape({
-        email: yup.string().email("Email inválido"),
-        name: yup.string(),
-        phone: yup.string(),
-        friendId: yup.string()
+        phone: yup.string().required("Telefone necessário")
     })
 
     const { register, handleSubmit, formState: { errors } } =
@@ -30,15 +27,12 @@ function EditUserCard(friendId: Partial<IFriends>) {
             <EditUserCardStyle>
                 <div>
                     <button onClick={() => setEditCard(null)}>X</button>
-                    <form onSubmit={handleSubmit(editFriend)}>
-                        <input type="text" placeholder="Nome"
-                            {...register("name")} />
-                        <input type="text" placeholder="Email"
-                            {...register("email")} />
+                    <form onSubmit={handleSubmit(editPhone)}>
                         <input type="text" placeholder="Telefone"
                             {...register("phone")} />
+                        <span>{errors.phone?.message}</span>
                         <button type="submit" onClick={() => setfriendIdState(friendId.friendId)}>
-                            Editar contato
+                            Editar telefone
                         </button>
                     </form>
                 </div>
