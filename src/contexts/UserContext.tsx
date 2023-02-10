@@ -1,4 +1,10 @@
-import { createContext, ReactNode, SetStateAction, useState } from "react";
+import {
+    createContext,
+    Dispatch,
+    ReactNode,
+    SetStateAction,
+    useState
+} from "react";
 import {
     IFriends,
     ILoginData,
@@ -17,9 +23,11 @@ export interface IUserAuth {
     user: IResponseUserData;
     allUsers: IResponseUserData[] | [];
     friends: IFriends[] | [];
+    editUserCard: boolean;
     setUser: (value: SetStateAction<IResponseUserData>) => void
     setAllUsers: (value: React.SetStateAction<IResponseUserData[]>) => void
     setFriends: (value: React.SetStateAction<IFriends[]>) => void
+    setEditUserCard: Dispatch<SetStateAction<boolean>>
     loginFunc: (data: ILoginData) => void;
     registerFunc: (data: IRegisterData) => void;
     getUser: () => void;
@@ -32,13 +40,13 @@ export interface IUserProps {
 }
 
 function UserProvider({ children }: IUserProps) {
+    const navigate = useNavigate()
     const userId = window.localStorage.getItem("@id")
     const token = window.localStorage.getItem("@token")
-    const navigate = useNavigate()
-
     const [user, setUser] = useState<IResponseUserData>({} as IResponseUserData)
     const [allUsers, setAllUsers] = useState<IResponseUserData[]>([])
     const [friends, setFriends] = useState<IFriends[]>([])
+    const [editUserCard, setEditUserCard] = useState<boolean>(false)
 
     const getUser = () => {
         API.get<IResponseUserData>(`/users/${userId}`, {
@@ -134,6 +142,8 @@ function UserProvider({ children }: IUserProps) {
 
     return (
         <UserContext.Provider value={{
+            editUserCard,
+            setEditUserCard,
             getFriends,
             friends,
             setFriends,

@@ -4,7 +4,7 @@ import { UserContext } from "../../contexts/UserContext"
 import { IFriends } from "../../interfaces"
 import { FriendCardStyle } from "./styles"
 import { AiOutlineEdit } from "react-icons/ai"
-import EditUserCard from "../EditUserCard"
+import EditFriendCard from "../EditFriendCard"
 
 function FriendsCard() {
     const { editCard, setEditCard, removeFriend } = useContext(FriendContext)
@@ -16,7 +16,7 @@ function FriendsCard() {
                 friends.map((data: IFriends) => (
                     data.email == user.email ||
                         editCard == data.friendId ?
-                        <EditUserCard key={data.friendId}
+                        <EditFriendCard key={data.friendId}
                             friendId={data.friendId} />
                         :
                         <FriendCardStyle key={data.friendId}>

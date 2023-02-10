@@ -3,20 +3,18 @@ import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import { FriendContext } from "../../contexts/FriendsContext"
 import { IAddFriendData, IFriends } from "../../interfaces"
-import { EditUserCardStyle } from "./styles"
+import { EditFriendCardStyle } from "./styles"
 import * as yup from "yup"
-import { UserContext } from "../../contexts/UserContext"
 
-function EditUserCard(friendId: Partial<IFriends>) {
+function EditFriendCard(friendId: Partial<IFriends>) {
     const {
         setfriendIdState,
         editPhone,
+        setEditCard
     } = useContext(FriendContext)
-    const { setEditUserCard } = useContext(UserContext)
 
     const formSchema = yup.object().shape({
-        phone: yup.string().required("Insira seu telefone"),
-        email: yup.string().email()
+        phone: yup.string().required("Telefone necessário")
     })
 
     const { register, handleSubmit, formState: { errors } } =
@@ -26,25 +24,23 @@ function EditUserCard(friendId: Partial<IFriends>) {
 
     return (
         <>
-            <EditUserCardStyle>
+            <EditFriendCardStyle>
                 <div>
-                    <button onClick={() => setEditUserCard(false)}>X</button>
+                    <button onClick={() => setEditCard(null)}>X</button>
                     <form onSubmit={handleSubmit(editPhone)}>
-                        <input type="text" placeholder="Email"
-                            {...register("email")} />
-                        <span>{errors.email?.message}</span>
+                        <label>Editar telefone:</label>
                         <input type="text" placeholder="Telefone"
                             {...register("phone")} />
                         <span>{errors.phone?.message}</span>
                         <button type="submit" onClick={() =>
                             setfriendIdState(friendId.friendId)}>
-                            Editar usuário
+                            Confirmar
                         </button>
                     </form>
                 </div>
-            </EditUserCardStyle>
+            </EditFriendCardStyle>
         </>
     )
 }
 
-export default EditUserCard
+export default EditFriendCard

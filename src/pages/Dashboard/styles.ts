@@ -16,6 +16,20 @@ const Main = styled.main`
         flex-direction: column;
         align-items: flex-start;
     }
+
+    header>div{
+        // background-color: pink;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100vw;
+    }
+
+    header>div>button{
+        width: 90px;
+        height: 55px;
+    }
     
     a>button{
         position: absolute;
