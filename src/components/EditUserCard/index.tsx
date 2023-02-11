@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
-import { IAddFriendData, IFriends } from "../../interfaces"
+import { IAddFriendData } from "../../interfaces"
 import { EditUserCardStyle } from "./styles"
 import * as yup from "yup"
 import { UserContext } from "../../contexts/UserContext"
