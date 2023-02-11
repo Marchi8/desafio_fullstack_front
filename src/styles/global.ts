@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button{
-    border: 1px solid white;
+    border: 2px solid pink;
   }
 
   button:hover{

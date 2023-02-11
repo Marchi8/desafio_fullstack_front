@@ -1,3 +1,9 @@
+import { ReactNode } from "react";
+
+export interface IUserProps {
+    children: ReactNode;
+}
+
 export interface ILoginData {
     email: string;
     password: string;

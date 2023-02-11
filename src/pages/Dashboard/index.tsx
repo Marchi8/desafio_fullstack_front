@@ -44,10 +44,13 @@ function Dashboard() {
                 </Link>
                 <h2>DashBoard</h2>
                 <div>
-                    <h2>Olá, {user.name}</h2>
-                    <button onClick={() => setEditUserCard(true)}>
-                        Editar usuário
-                    </button>
+                    <section>
+                        <h2>Olá, {user.name}</h2>
+                        <p>Seu telefone: {user.phone}</p>
+                        <button onClick={() => setEditUserCard(true)}>
+                            Edite seus dados
+                        </button>
+                    </section>
                 </div>
             </header>
             {createFriendCard == true ?
@@ -56,10 +59,12 @@ function Dashboard() {
                 <EditUserCard /> : null}
             <section>
                 <div>
-                    <button onClick={() => setCreateFriendCard(true)}>
-                        Criar um contato
-                    </button>
-                    <h3>Seus contatos:</h3>
+                    <aside>
+                        <h3>Seus contatos:</h3>
+                        <button onClick={() => setCreateFriendCard(true)}>
+                            Criar um contato
+                        </button>
+                    </aside>
                     <ul> <FriendsCard /></ul>
                 </div>
                 <div>

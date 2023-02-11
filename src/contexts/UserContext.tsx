@@ -6,12 +6,14 @@ import {
     useState
 } from "react";
 import {
+    IAddFriendData,
     IFriends,
     ILoginData,
     ILoginResponse,
     IRegisterData,
     IRegisterResponse,
-    IResponseUserData
+    IResponseUserData,
+    IUserProps
 } from "../interfaces";
 import { API } from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +26,7 @@ export interface IUserAuth {
     allUsers: IResponseUserData[] | [];
     friends: IFriends[] | [];
     editUserCard: boolean;
+    editUser: (data: IAddFriendData) => void;
     setUser: (value: SetStateAction<IResponseUserData>) => void
     setAllUsers: (value: React.SetStateAction<IResponseUserData[]>) => void
     setFriends: (value: React.SetStateAction<IFriends[]>) => void
@@ -33,10 +36,6 @@ export interface IUserAuth {
     getUser: () => void;
     getFriends: () => void;
     retrieveUsers: () => void;
-}
-
-export interface IUserProps {
-    children: ReactNode;
 }
 
 function UserProvider({ children }: IUserProps) {
@@ -140,9 +139,56 @@ function UserProvider({ children }: IUserProps) {
             })
     }
 
+    const editUser = (data: IAddFriendData) => {
+        if (!data) {
+            return toast.error("Dados inválidos", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            })
+        }
+
+        API.patch(`/users/${user.id}`, data, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                getUser()
+                setEditUserCard(false)
+                toast.success("Usuário Atualizado", {
+                    position: "top-right",
+                    autoClose: 800,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error(error.response.data.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            })
+    }
+
     return (
         <UserContext.Provider value={{
             editUserCard,
+            editUser,
             setEditUserCard,
             getFriends,
             friends,
