@@ -1,9 +1,24 @@
 Sobre o projeto:
 ===========================
 
-Este projeto faz parte de um projeto full stack que consiste em criar um pequeno cadastro de clientes com vínculo de contatos, depois mostrar o cliente e seus contatos vinculados.
+Essa aplicação faz parte de um projeto full stack que consiste em criar um pequeno cadastro de clientes com vínculo de contatos, depois mostrar o cliente e seus contatos vinculados.
 
 Back-End: https://github.com/Marchi8/desafio_fullstack_back
+
+Ferramentas utilizadas
+---------------
+
+1. TypeScript
+2. React
+3. Axios
+4. React Hook Form
+5. Styled-Components
+6. Yup
+7. React Router Dom
+8. React Toastify
+9. React Icons
+10. Vite
+---------------
 
 # Como utilizar a aplicação localmente:
 
