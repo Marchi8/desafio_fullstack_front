@@ -48,7 +48,7 @@ function Dashboard() {
                         <h2>Olá, {user.name}</h2>
                         <p>Seu telefone: {user.phone}</p>
                         <button onClick={() => setEditUserCard(true)}>
-                            Edite seus dados
+                            Edit
                         </button>
                     </section>
                 </div>

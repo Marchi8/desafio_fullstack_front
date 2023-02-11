@@ -48,7 +48,7 @@ function RegisterForm() {
             </div>
             <div>
                 <label>Telefone</label>
-                <input type="text" placeholder="Opção de contato"
+                <input type="text" placeholder="Digite aqui seu telefone"
                     {...register("phone")} />
                 <span>{errors.phone?.message}</span>
             </div>

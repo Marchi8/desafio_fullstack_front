@@ -6,9 +6,9 @@ import {
     useState
 } from "react";
 import { toast } from "react-toastify";
-import { IAddFriendData } from "../interfaces";
+import { IAddFriendData, IUserProps } from "../interfaces";
 import { API } from "../services/api";
-import { IUserProps, UserContext } from "./UserContext";
+import { UserContext } from "./UserContext";
 
 export const FriendContext = createContext<IFriendAuth>({} as IFriendAuth)
 

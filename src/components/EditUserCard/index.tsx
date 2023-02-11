@@ -5,6 +5,7 @@ import { IAddFriendData } from "../../interfaces"
 import { EditUserCardStyle } from "./styles"
 import * as yup from "yup"
 import { UserContext } from "../../contexts/UserContext"
+import { Background } from "../CreateFriendCard/styles"
 
 function EditUserCard() {
     const { editUser, setEditUserCard } = useContext(UserContext)
@@ -21,23 +22,33 @@ function EditUserCard() {
 
     return (
         <>
-            <EditUserCardStyle>
-                <div>
-                    <button onClick={() => setEditUserCard(false)}>X</button>
-                    <form onSubmit={handleSubmit(editUser)}>
-                        testee
-                        <input type="text" placeholder="Email"
-                            {...register("email")} />
-                        <span>{errors.email?.message}</span>
-                        <input type="text" placeholder="Telefone"
-                            {...register("phone")} />
-                        <span>{errors.phone?.message}</span>
-                        <button type="submit">
-                            Editar usuário
-                        </button>
-                    </form>
-                </div>
-            </EditUserCardStyle>
+            <Background>
+                <EditUserCardStyle>
+                    <div>
+                        <button onClick={() => setEditUserCard(false)}>X</button>
+                        <form onSubmit={handleSubmit(editUser)}>
+                            <h3>Edite seu usuário</h3>
+                            <div>
+                                <label>Email</label>
+                                <input type="text"
+                                    placeholder="Digite aqui seu email"
+                                    {...register("email")} />
+                                <span>{errors.email?.message}</span>
+                            </div>
+                            <div>
+                                <label>Email</label>
+                                <input type="text"
+                                    placeholder="Digite aqui seu telefone"
+                                    {...register("phone")} />
+                                <span>{errors.phone?.message}</span>
+                            </div>
+                            <button type="submit">
+                                Editar usuário
+                            </button>
+                        </form>
+                    </div>
+                </EditUserCardStyle>
+            </Background>
         </>
     )
 }

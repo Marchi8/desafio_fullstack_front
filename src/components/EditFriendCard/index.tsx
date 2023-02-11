@@ -28,10 +28,13 @@ function EditFriendCard(friendId: Partial<IFriends>) {
                 <div>
                     <button onClick={() => setEditCard(null)}>X</button>
                     <form onSubmit={handleSubmit(editPhone)}>
-                        <label>Editar telefone:</label>
-                        <input type="text" placeholder="Telefone"
-                            {...register("phone")} />
-                        <span>{errors.phone?.message}</span>
+                        <h3>Editar contato</h3>
+                        <div>
+                            <label>Editar telefone:</label>
+                            <input type="text" placeholder="Telefone"
+                                {...register("phone")} />
+                            <span>{errors.phone?.message}</span>
+                        </div>
                         <button type="submit" onClick={() =>
                             setfriendIdState(friendId.friendId)}>
                             Confirmar

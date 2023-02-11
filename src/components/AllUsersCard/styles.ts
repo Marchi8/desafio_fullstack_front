@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const AllUsersCardStyle = styled.li`
-    list-style: none;
     background-color: black;
     border: 2px solid pink;
     display: flex;
@@ -10,13 +9,14 @@ const AllUsersCardStyle = styled.li`
     align-items: center;
     margin:10px;
     border-radius: 30px;
-    
-    p{
-        color: white;
+    word-wrap: break-word;
+
+    div{
+        width:180px;
     }
 
-    button{
-        border: 1px solid white;
+    p{
+        margin-bottom: 30px;
     }
 `
 

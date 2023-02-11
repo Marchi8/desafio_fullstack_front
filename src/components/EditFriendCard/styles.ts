@@ -10,20 +10,32 @@ const EditFriendCardStyle = styled.li`
     align-items: center;
     margin:10px;
     border-radius: 30px;
-    width: 500px;
-    
+
     form{
+        width:180px;
         display: flex;
         flex-direction: column; 
-        gap: 30px;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: -10px;
+    }
+    
+    form>div{
+        display: flex; 
+        align-items: flex-start;
+        flex-direction: column;
+        height: 120px;
     }
 
-    p{
-        color: white;
+    input{
+        width: 150px;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 10px;
     }
 
-    button{
-        border: 1px solid white;
+    span{
+        color: red;
     }
 `
 

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const FriendCardStyle = styled.li`
-    list-style: none;
     background-color: black;
     border: 2px solid pink;
     display: flex;
@@ -10,18 +9,13 @@ const FriendCardStyle = styled.li`
     align-items: center;
     margin:10px;
     border-radius: 30px;
-    width: 500px;
-
-    p{
-        color: white;
-    }
-
-    button{
-        border: 1px solid white;
+    word-wrap: break-word;
+    
+    div{
+        width:180px;
     }
 
     #open-edit{
-        // background-color: pink;
         border-radius: 100px;
         font-size: 20px;
         padding: 0;

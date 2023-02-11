@@ -47,6 +47,7 @@ const Main = styled.main`
         flex-direction: column; 
         justify-content: center;
         align-items: center;
+        margin-bottom: 10px;
     }
 
     p{
@@ -57,7 +58,6 @@ const Main = styled.main`
         display: flex;
         flex-direction: row; 
         justify-content: flex-start;
-        // justify-content: center; Aplicar essa confirguração na versão desktop
         width: 100vw;
         padding: 0;
         height: 290px;
